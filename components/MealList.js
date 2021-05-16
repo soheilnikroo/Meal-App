@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Text,FlatList,StyleSheet } from 'react-native';
+import { View,FlatList,StyleSheet } from 'react-native';
 
 import MealItem from './MealItem'
 
@@ -9,7 +9,7 @@ const MealList =({listData,navigation})=>{
         return(
             <MealItem 
                 title={itemData.item.title} 
-                onSelectedMeal={()=>navigation.navigate({routeName:'MealDetail',params:{id:itemData.item.id}})} 
+                onSelectedMeal={()=>navigation.navigate({routeName:'MealDetail',params:{id:itemData.item.id,title:itemData.item.title}})} 
                 duration={itemData.item.duration} 
                 complexity={itemData.item.complexity} 
                 affordability={itemData.item.affordability} 

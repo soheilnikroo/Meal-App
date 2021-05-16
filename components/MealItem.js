@@ -1,7 +1,7 @@
 import React from 'react';
 import { View,StyleSheet,TouchableOpacity,Text,ImageBackground } from 'react-native';
 
-import DefaultText from '../components/DefaulltText'
+import DefaultText from '../components/DefaultText';
 
 const MealItem=({title,onSelectedMeal,duration,affordability,complexity,image})=>{
     return(
