@@ -1,27 +1,25 @@
 import React from 'react';
-import { View,Text,StyleSheet,TouchableOpacity,FlatList,Platform } from 'react-native';
+import { View,Text,StyleSheet,TouchableOpacity,FlatList } from 'react-native';
 
 import {CATEGORIES} from '../data/dummy-data';
-import Color from '../constant/Color'
-
+import CategoryGridTile from '../components/CategoryGridTile';
+import {HeaderButtons,Item} from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton';
 
 
 const CategoriesScreen=({navigation})=>{
 
     const renderGridItem=(itemData) =>{
         return (
-            <TouchableOpacity  style={styles.gridItem} onPress={() =>{
-                navigation.navigate({routeName:'CategoryMeal',params:{
-                    categoryId: itemData.item.id,
+            <CategoryGridTile 
+                title={itemData.item.title} 
+                color={itemData.item.color}
+                onSelected={() =>{
+                    navigation.navigate({routeName:'CategoryMeal',params:{
+                        categoryId: itemData.item.id,
                     
-                }})
-            }}>
-                <View>
-                    <Text>
-                        {itemData.item.title}
-                    </Text>
-                </View>
-            </TouchableOpacity>
+                    }})
+                }} />
         );
     };
 
@@ -35,27 +33,19 @@ const CategoriesScreen=({navigation})=>{
     );
 };
 
-CategoriesScreen.navigationOptions={
-    headerTitle:'Meal Categories',
-    headerStyle:{
-        backgroundColor: Platform.OS === 'android' ? Color.primaryColor : ''
-    },
-    headerTintColor: Platform.OS === 'android' ? 'white' : Color.primaryColor
-};
-
-const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    gridItem:{
-        flex:1,
-        margin:15,
-        height:150
+CategoriesScreen.navigationOptions=(navData)=>{
+    return{
+        headerTitle:'Meal Categories',
+        headerLeft:()=>{
+            return (
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item title="Menu" iconName="ios-menu" onPress={()=>{
+                        navData.navigation.toggleDrawer();
+                    }} />
+                </HeaderButtons>
+            )
+        }
     }
-
-});
+};
 
 export default CategoriesScreen;
